@@ -620,9 +620,18 @@ var odds = _.reject([1, 2, 3, 4, 5, 6], function(num){ return num % 2 == 0; });
   // @fad
   // Safely create a real, live array from anything iterable.
   _.toArray = function(obj) {
+    // よく分からない
+    // obj = null
+    // !obj = true
+    // nullだったら、空の配列を返す？
     if (!obj) return [];
+    // 配列だったら、その値を返す
     if (_.isArray(obj)) return slice.call(obj);
+    // _.identityは渡された引き数と同じ値を返す
+    // ここでは、_.identityを_.mapのiteratorとして使い、
+    // 要するに、渡された配列と同じ値の配列を返す
     if (obj.length === +obj.length) return _.map(obj, _.identity);
+    // obj が連想配列なら、そのvaluesで配列の値をarrayとして返す
     return _.values(obj);
   };
 
