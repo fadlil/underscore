@@ -889,6 +889,10 @@ var odds = _.reject([1, 2, 3, 4, 5, 6], function(num){ return num % 2 == 0; });
   // Delegates to **ECMAScript 5**'s native `indexOf` if available.
   // If the array is large and already in sort order, pass `true`
   // for **isSorted** to use binary search.
+  //
+  // 渡された配列の中から、探したいitemの最初のindexを返す
+  // 3番目の引数はソートされた配列だったら、trueを渡して、binary searchをしてくれる
+  // 又は、数字を渡したら、その数字以降の位置から検索する
   _.indexOf = function(array, item, isSorted) {
     if (array == null) return -1;
     var i = 0, length = array.length;
@@ -900,6 +904,8 @@ var odds = _.reject([1, 2, 3, 4, 5, 6], function(num){ return num % 2 == 0; });
         return array[i] === item ? i : -1;
       }
     }
+    // array.protoype.indexOf
+    // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
     if (nativeIndexOf && array.indexOf === nativeIndexOf) return array.indexOf(item, isSorted);
     for (; i < length; i++) if (array[i] === item) return i;
     return -1;
